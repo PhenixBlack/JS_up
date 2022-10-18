@@ -9,7 +9,7 @@ const app = new Vue({
         cartUrl: '/getBasket.json',
         cartItems: [],
         filtered: [],
-        imgCart: 'images/kompyuternaya-texnika.jpg',
+        imgCart: 'images/kompyuternaya-texnika-small.jpg',
         products: [],
         imgProduct: 'images/kompyuternaya-texnika.jpg'
     },
