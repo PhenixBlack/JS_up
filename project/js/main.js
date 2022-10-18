@@ -9,9 +9,9 @@ const app = new Vue({
         cartUrl: '/getBasket.json',
         cartItems: [],
         filtered: [],
-        imgCart: 'https://via.placeholder.com/50x100',
+        imgCart: 'images/kompyuternaya-texnika-small.jpg',
         products: [],
-        imgProduct: 'https://via.placeholder.com/200x150'
+        imgProduct: 'images/kompyuternaya-texnika.jpg'
     },
     methods: {
         getJson(url){
@@ -34,9 +34,9 @@ const app = new Vue({
                 })
         },
         remove(item){
-            this.getJson(`${API}/deleteFromBasket.json`)
+            this.getJson(`${API}/addToBasket.json`)
                 .then(data => {
-                    if  (data.result === 1){
+                    if (data.result === 1) {
                         if(item.quantity>1){
                             item.quantity--;
                         } else {
@@ -45,16 +45,16 @@ const app = new Vue({
                     }
                 })
         },
-        filter(){
-            let regexp = new RegExp(this.userSearch, 'i');
-            this.filtered =  this.products.filter(el => regexp.test(el.product_name));
+        filter(userSearch){
+            let regexp = new RegExp(userSearch, 'i');
+            this.filtered = this.products.filter(el => regexp.test(el.product_name));
         }
     },
     mounted(){
         this.getJson(`${API + this.cartUrl}`)
             .then(data => {
                 for (let item of data.contents){
-                    this.cartItems.push(item);
+                    this.$data.cartItems.push(item);
                 }
             });
         this.getJson(`${API + this.catalogUrl}`)
@@ -67,11 +67,12 @@ const app = new Vue({
         this.getJson(`getProducts.json`)
             .then(data => {
                 for(let item of data){
-                    this.products.push(item);
-                    this.filtered.push(item);
+                    this.$data.products.push(item);
+                    this.$data.filtered.push(item);
                 }
             })
     }
 
 });
+
 
